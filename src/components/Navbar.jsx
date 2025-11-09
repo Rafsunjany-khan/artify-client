@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -7,7 +8,7 @@ const Navbar = () => {
       <div className="text-2xl font-bold text-purple-600 cursor-pointer"> Artify </div>
 
       <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
-        <li className="hover:text-purple-500 cursor-pointer">Home</li>
+        <li className="hover:text-purple-500 cursor-pointer"><Link to="/">Home</Link></li>
         <li className="hover:text-purple-500 cursor-pointer">Explore Artworks</li>
         <li className="hover:text-purple-500 cursor-pointer">Add Artwork</li>
         <li className="hover:text-purple-500 cursor-pointer">My Gallery</li>
