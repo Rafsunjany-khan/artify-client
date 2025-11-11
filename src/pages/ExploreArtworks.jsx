@@ -22,7 +22,7 @@ const ExploreArtworks = () => {
   }
 
   return (
-    <section className="mt-16 py-8 px-20 bg-gray-100">
+    <section className="mt-16 py-8 px-28 bg-gray-100">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-center">Explore Artworks</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">

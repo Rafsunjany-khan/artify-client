@@ -1,0 +1,129 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const AddArtworks = () => {
+  const [formData, setFormData] = useState({
+    title: "",
+    artist: "",
+    category: "",
+    image: "",
+    description: "",
+    medium: "",
+    dimensions: "",
+    year: "",
+    price: "",
+    visibility: "Public",
+    userName: "Test User",
+    userEmail: "test@example.com",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedData = { ...formData, image: formData.image };
+      const res = await axios.post("http://localhost:5000/api/artworks", updatedData);
+      toast.success(res.data.message, { position: "top-center" });
+
+      // Reset form
+      setFormData({
+        title: "",
+        artist: "",
+        category: "",
+        image: "",
+        description: "",
+        medium: "",
+        dimensions: "",
+        year: "",
+        price: "",
+        visibility: "Public",
+        userName: "Test User",
+        userEmail: "test@example.com",
+      });
+    } catch (err) {
+      console.error("POST Error:", err.response?.data || err.message);
+      toast.error(err.response?.data?.message || "Failed to add artwork", { position: "top-center" });
+    }
+  };
+
+  return (
+<div className="min-h-screen w-screen bg-gradient-to-r from-purple-100 to-purple-50 flex justify-center items-start pt-24">
+     <ToastContainer />
+      <div className="w-full max-w-3xl bg-white p-8 rounded-xl shadow-lg">
+        <h2 className="text-3xl font-bold text-center text-purple-700 mb-6">Add New Artwork</h2>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" name="title" placeholder="Artwork Title" value={formData.title}
+              onChange={handleChange}
+              className="w-full border border-purple-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
+              required/>
+            <input type="text" name="artist" placeholder="Artist Name" value={formData.artist}
+              onChange={handleChange}
+              className="w-full border border-purple-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
+              required/>
+          </div>
+
+          <input type="text" name="category" placeholder="Category" value={formData.category}
+            onChange={handleChange}
+            className="w-full border border-purple-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
+            required/>
+
+          <input type="text" name="image" placeholder="Image URL (https://images.unsplash.com/photo-...)"
+            value={formData.image}
+            onChange={handleChange}
+            className="w-full border border-purple-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
+            required/>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" name="medium" placeholder="Medium / Tools" value={formData.medium}
+              onChange={handleChange}
+              className="w-full border border-purple-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"/>
+            <input type="text" name="dimensions" placeholder="Dimensions" value={formData.dimensions}
+              onChange={handleChange}
+              className="w-full border border-purple-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"/>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="number" name="year" placeholder="Year" value={formData.year}
+              onChange={handleChange}
+              className="w-full border border-purple-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"/>
+            <input type="number" name="price" placeholder="Price" value={formData.price}
+              onChange={handleChange}
+              className="w-full border border-purple-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"/>
+          </div>
+
+          <select name="visibility" value={formData.visibility} onChange={handleChange}
+            className="w-full border border-purple-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none">
+            <option value="Public">Public</option>
+            <option value="Private">Private</option>
+          </select>
+
+          <textarea name="description" placeholder="Description" value={formData.description}
+            onChange={handleChange}
+            rows={4}
+            className="w-full border border-purple-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"/>
+
+          <input type="text" value={formData.userName}
+            readOnly
+            className="w-full border border-gray-300 p-3 rounded-lg bg-gray-100"/>
+          <input type="email" value={formData.userEmail}
+            readOnly
+            className="w-full border border-gray-300 p-3 rounded-lg bg-gray-100"/>
+
+          <button type="submit"
+            className="w-full bg-purple-600 text-white p-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+            Add Artwork
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default AddArtworks;
