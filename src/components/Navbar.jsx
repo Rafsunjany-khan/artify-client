@@ -15,9 +15,11 @@ const Navbar = () => {
         <li className="hover:text-purple-500 cursor-pointer">My Favorites</li>
       </ul>
 
-      <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500 text-sm font-medium">
-        Login
-      </button>
+       <Link to="/register">
+        <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500 text-sm font-medium">
+          Registration
+        </button>
+      </Link>
 
     </nav>
   );
