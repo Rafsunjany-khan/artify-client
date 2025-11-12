@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"; // ✅ import useEffect
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -8,23 +8,29 @@ import AddArtworks from "./pages/AddArtworks";
 import Footer from "./components/Footer";
 import app from "./authentication/firebaseConfig";
 import Register from "./authentication/Register";
+import Login from "./authentication/Login";
 
 function App() {
   useEffect(() => {
-    console.log("Firebase App Initialized:", app); // ✅ logs Firebase app
-  }, []); // ✅ empty dependency array → runs once on mount
+    console.log("Firebase App Initialized:", app);
+  }, []);
 
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/explore" element={<ExploreArtworks />} />
-        <Route path="/artworks/:id" element={<ArtworkDetails />} />
-        <Route path="/addArtwork" element={<AddArtworks />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-      <Footer />
+      <div className="min-h-screen flex flex-col w-full">
+        <Navbar />
+        <main className="flex-1 w-full">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/explore" element={<ExploreArtworks />} />
+            <Route path="/artworks/:id" element={<ArtworkDetails />} />
+            <Route path="/addArtwork" element={<AddArtworks />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }
