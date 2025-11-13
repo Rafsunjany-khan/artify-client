@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup,} from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import app from "./firebaseConfig";
+import axios from "axios";
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -10,6 +11,15 @@ const provider = new GoogleAuthProvider();
 const Register = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
+
+  const saveUserToDB = async (userData) => {
+    try {
+      await axios.post("http://localhost:5000/api/users", userData);
+      console.log("User saved to MongoDB");
+    } catch (err) {
+      console.error("Failed to save user to MongoDB:", err);
+    }
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -25,6 +35,14 @@ const Register = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name, photoURL });
+
+      await saveUserToDB({
+        name,
+        email,
+        photoURL,
+        uid: userCredential.user.uid,
+      });
+
       toast.success("Registration Successful!");
       navigate("/");
     } catch (err) {
@@ -36,7 +54,15 @@ const Register = () => {
   const handleGoogleSignup = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log(result.user);
+      const user = result.user;
+
+      await saveUserToDB({
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      });
+
       toast.success("Google Sign-up Successful!");
       navigate("/");
     } catch (err) {

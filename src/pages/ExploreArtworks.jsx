@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const ExploreArtworks = () => {
   const [artworks, setArtworks] = useState([]);
@@ -42,7 +43,6 @@ const ExploreArtworks = () => {
                     View Details
                   </button>
                 </Link>
-
               </div>
             </div>
           ))}
