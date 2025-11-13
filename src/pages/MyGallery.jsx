@@ -75,6 +75,22 @@ const MyGallery = () => {
     }
   };
 
+// Delete functionality
+const handleDelete = async (artId) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this artwork?");
+  if (!confirmDelete) return;
+
+  try {
+    const res = await axios.delete(`http://localhost:5000/api/artworks/${artId}`);
+    toast.success(res.data.message, { position: "top-center" });
+    setArtworks((prev) => prev.filter((art) => art._id !== artId));
+  } catch (err) {
+    console.error(err);
+    toast.error(err.response?.data?.message || "Failed to delete artwork", { position: "top-center" });
+  }
+};
+
+
   if (loading)
     return <p className="text-center mt-10 text-gray-500">Loading your artworks...</p>;
   if (artworks.length === 0)
@@ -95,10 +111,19 @@ const MyGallery = () => {
                 <h3 className="text-xl font-semibold mb-1">{art.title}</h3>
                 <p className="text-gray-600 mb-1">Category: {art.category}</p>
                 <p className="text-gray-500 mb-4">Likes: {art.likes || 0}</p>
-                <button onClick={() => handleEditClick(art)}
-                  className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-500">
-                  Edit
-                </button>
+                <div className="flex gap-2 mt-2">
+                  <button
+                    onClick={() => handleEditClick(art)}
+                    className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-500">
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(art._id)}
+                    className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500">
+                    Delete
+                  </button>
+                </div>
+
               </div>
             </div>
           ))}
