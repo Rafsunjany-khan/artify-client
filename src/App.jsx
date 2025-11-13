@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ExploreArtworks from "./pages/ExploreArtworks";
 import ArtworkDetails from "./pages/ArtworkDetails";
 import AddArtworks from "./pages/AddArtworks";
+import MyGallery from "./pages/MyGallery";
 import Footer from "./components/Footer";
 import app from "./authentication/firebaseConfig";
 import Register from "./authentication/Register";
@@ -25,6 +26,7 @@ function App() {
             <Route path="/explore" element={<ExploreArtworks />} />
             <Route path="/artworks/:id" element={<ArtworkDetails />} />
             <Route path="/addArtwork" element={<AddArtworks />} />
+            <Route path="/my-gallery" element={<MyGallery />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
