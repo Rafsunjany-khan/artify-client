@@ -10,6 +10,7 @@ import MyGallery from "./pages/MyGallery";
 import MyFavorites from "./pages/MyFavorites";
 import Login from "./authentication/Login";
 import Register from "./authentication/Register";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 function Layout() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/my-favorites" element={<MyFavorites />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

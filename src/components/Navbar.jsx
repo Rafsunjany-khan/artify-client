@@ -85,7 +85,8 @@ const Navbar = () => {
           {dropdownOpen && (
             <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg py-2 z-50 flex flex-col">
               <button
-                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-purple-100 cursor-not-allowed mb-1">
+                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-purple-100 cursor-not-allowed mb-1"
+                onClick={() => navigate("/profile")}>
                 Profile
               </button>
               <button
