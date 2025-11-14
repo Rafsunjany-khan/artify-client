@@ -56,7 +56,7 @@ const ExploreArtworks = () => {
                   <h3 className="text-xl font-semibold mb-1">{art.title}</h3>
                   <p className="text-gray-600 mb-1">Artist: {art.artist}</p>
                   <p className="text-gray-500 mb-1">Category: {art.category}</p>
-                  <p className="text-gray-500 mb-4">Likes: {art.likes || 0}</p>
+                  <p className="text-gray-500 mb-4">Likes: {art.likes ? art.likes.length : 0}</p>
                   <Link to={`/artworks/${art._id}`}>
                     <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500">
                       View Details
