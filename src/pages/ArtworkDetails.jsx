@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
+import Loader from "../components/Loader";
+
 
 const ArtworkDetails = () => {
   const { id } = useParams();
@@ -47,7 +49,6 @@ const ArtworkDetails = () => {
 
   const handleFavorite = async () => {
     try {
-      // Only add if user not already in favorites
       if (artwork.favorites.includes(user.email)) {
         toast.info("Already in favorites!", { position: "top-center" });
         return;
@@ -65,8 +66,7 @@ const ArtworkDetails = () => {
     }
   };
 
-  if (loading)
-    return <p className="text-center mt-10 text-gray-500">Loading artwork details...</p>;
+  if (loading) return <Loader />;
   if (!artwork)
     return <p className="text-center mt-10 text-gray-500">Artwork not found</p>;
 
@@ -102,14 +102,12 @@ const ArtworkDetails = () => {
           <div className="flex gap-4">
             <button
               onClick={handleLike}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500"
-            >
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">
               Like
             </button>
             <button
               onClick={handleFavorite}
-              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500"
-            >
+              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500">
               Add to Favorites
             </button>
           </div>

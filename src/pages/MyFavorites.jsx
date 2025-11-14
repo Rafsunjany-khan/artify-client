@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const MyFavorites = () => {
   const { user } = useAuth();
@@ -41,9 +42,8 @@ const MyFavorites = () => {
     }
   };
 
-  if (loading) {
-    return <p className="text-center mt-10 text-gray-500">Loading favorites...</p>;
-  }
+   if (loading) return <Loader />;
+
 
   if (favorites.length === 0) {
     return <p className="text-center mt-10 text-gray-500">No favorite artworks yet.</p>;

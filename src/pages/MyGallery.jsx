@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
+import Loader from "../components/Loader";
 
 const MyGallery = () => {
   const { user } = useAuth();
@@ -91,8 +92,7 @@ const handleDelete = async (artId) => {
 };
 
 
-  if (loading)
-    return <p className="text-center mt-10 text-gray-500">Loading your artworks...</p>;
+  if (loading) return <Loader />;
   if (artworks.length === 0)
     return <p className="text-center mt-10 text-gray-500">You haven’t added any artworks yet.</p>;
 

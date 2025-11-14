@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Loader from "../components/Loader";
 
 const ExploreArtworks = () => {
   const [artworks, setArtworks] = useState([]);
@@ -28,9 +29,7 @@ const ExploreArtworks = () => {
       art.artist.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  if (loading) {
-    return <p className="text-center mt-10 text-gray-500">Loading artworks...</p>;
-  }
+  if (loading) return <Loader />;
 
   return (
     <section className="mt-1 py-8 px-6 md:px-28 bg-gray-100 min-h-screen">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const ExploreArtworks = () => {
   const [artworks, setArtworks] = useState([]);
@@ -18,9 +19,8 @@ const ExploreArtworks = () => {
       });
   }, []);
 
-  if (loading) {
-    return <p className="text-center mt-10 text-gray-500">Loading artworks...</p>;
-  }
+  if (loading) return <Loader />;
+
 
   return (
     <section className="py-10 bg-gray-100">
