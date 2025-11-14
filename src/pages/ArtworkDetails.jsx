@@ -47,6 +47,12 @@ const ArtworkDetails = () => {
 
   const handleFavorite = async () => {
     try {
+      // Only add if user not already in favorites
+      if (artwork.favorites.includes(user.email)) {
+        toast.info("Already in favorites!", { position: "top-center" });
+        return;
+      }
+
       const res = await axios.put(
         `http://localhost:5000/api/artworks/${id}/favorite`,
         { userEmail: user.email }
@@ -72,8 +78,10 @@ const ArtworkDetails = () => {
         <div className="p-8">
           <h1 className="text-4xl font-bold mb-3">{artwork.title}</h1>
           <div className="flex items-center gap-4 mb-4">
-            <img src={artwork.userPhoto || "/default-avatar.png"}
-              className="w-12 h-12 rounded-full object-cover"/>
+            <img
+              src={artwork.userPhoto || "/default-avatar.png"}
+              className="w-12 h-12 rounded-full object-cover"
+            />
             <div>
               <p className="font-semibold">{artwork.userName}</p>
               <p className="text-gray-500 text-sm">{artistArtworksCount} artworks</p>
@@ -94,12 +102,14 @@ const ArtworkDetails = () => {
           <div className="flex gap-4">
             <button
               onClick={handleLike}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500"
+            >
               Like
             </button>
             <button
               onClick={handleFavorite}
-              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500">
+              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500"
+            >
               Add to Favorites
             </button>
           </div>

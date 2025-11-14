@@ -65,8 +65,10 @@ const Navbar = () => {
         <li className="hover:text-purple-500 cursor-pointer">
             <Link to="/my-gallery">My Gallery</Link>
         </li>
-        <li className="hover:text-purple-500 cursor-pointer">My Favorites</li>
-      </ul>
+        <li className="hover:text-purple-500 cursor-pointer">
+          <Link to="/my-favorites">My Favorites</Link>
+        </li>
+ </ul>
 
       {user ? (
         <div className="relative" ref={dropdownRef}>
