@@ -11,6 +11,7 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef();
 
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
@@ -27,6 +28,7 @@ const Navbar = () => {
     });
     return () => unsubscribe();
   }, []);
+
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -59,23 +61,27 @@ const Navbar = () => {
         <li className="hover:text-purple-500 cursor-pointer">
           <Link to="/explore">Explore Artworks</Link>
         </li>
-        <li className="hover:text-purple-500 cursor-pointer">
-          <Link to="/addArtwork">Add Artwork</Link>
-        </li>
-        <li className="hover:text-purple-500 cursor-pointer">
-            <Link to="/my-gallery">My Gallery</Link>
-        </li>
-        <li className="hover:text-purple-500 cursor-pointer">
-          <Link to="/my-favorites">My Favorites</Link>
-        </li>
- </ul>
+
+        {user && (
+          <>
+            <li className="hover:text-purple-500 cursor-pointer">
+              <Link to="/addArtwork">Add Artwork</Link>
+            </li>
+            <li className="hover:text-purple-500 cursor-pointer">
+              <Link to="/my-gallery">My Gallery</Link>
+            </li>
+            <li className="hover:text-purple-500 cursor-pointer">
+              <Link to="/my-favorites">My Favorites</Link>
+            </li>
+          </>
+        )}
+      </ul>
 
       {user ? (
         <div className="relative" ref={dropdownRef}>
           <img src={user.photoURL || "https://via.placeholder.com/40"}
             className="w-10 h-10 object-cover rounded-full cursor-pointer border-2 border-purple-500"
             onClick={() => setDropdownOpen(!dropdownOpen)}/>
-
           {dropdownOpen && (
             <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg py-2 z-50 flex flex-col">
               <button
