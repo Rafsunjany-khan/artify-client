@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
 import Loader from "../components/Loader";
-
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 const ArtworkDetails = () => {
   const { id } = useParams();
@@ -73,6 +73,7 @@ const ArtworkDetails = () => {
   return (
     <div className="min-h-screen w-full bg-gray-100 pt-24 pb-12 px-6 md:px-80 flex justify-center">
       <ToastContainer />
+      <ReactTooltip id="artwork-tooltip" />
       <div className="w-full max-w-6xl bg-white rounded-xl shadow-lg overflow-hidden">
         <img src={artwork.image} className="w-full h-[500px] object-cover" />
         <div className="p-8">
@@ -102,11 +103,15 @@ const ArtworkDetails = () => {
           <div className="flex gap-4">
             <button
               onClick={handleLike}
+              data-tooltip-id="artwork-tooltip"
+              data-tooltip-content="Show appreciation for this artwork"
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">
               Like
             </button>
             <button
               onClick={handleFavorite}
+              data-tooltip-id="artwork-tooltip"
+              data-tooltip-content="Save to your favorites collection"
               className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500">
               Add to Favorites
             </button>

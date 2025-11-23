@@ -43,7 +43,7 @@ const TopArtists = () => {
           {artists.map((artist, idx) => (
             <div
               key={idx}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 flex flex-col items-center transition-colors duration-500 hover:shadow-2xl">
+              className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-4 flex flex-col items-center transition-colors duration-500 hover:shadow-2xl">
               <img src={artist.avatar}
                  className="w-20 h-20 rounded-full mb-4 object-cover"/>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1 transition-colors duration-500">

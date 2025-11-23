@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  FaFacebookF, FaTwitter, FaGithub, FaYoutube, FaLinkedinIn,
+  FaFacebookF, FaGithub, FaYoutube, FaLinkedinIn,
   FaSkype, FaInstagram, FaPinterestP, FaTwitch, FaDiscord
 } from "react-icons/fa";
 
@@ -23,7 +23,7 @@ const Footer = () => {
           <h2 className="text-xl font-semibold mb-4">Follow Us</h2>
           <div className="grid grid-cols-5 gap-3 text-gray-700 dark:text-gray-300">
             <FaFacebookF />
-            <FaTwitter />
+            <span className="flex items-center justify-center text-lg font-bold">𝕏</span>
             <FaGithub />
             <FaYoutube />
             <FaLinkedinIn />

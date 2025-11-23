@@ -92,7 +92,7 @@ const Navbar = () => {
       ) : (
         <Link to="/login">
           <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500 text-sm font-medium">
-            Login
+            Login / Register
           </button>
         </Link>
       )}

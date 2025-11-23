@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 const MyFavorites = () => {
   const { user } = useAuth();
@@ -44,7 +45,6 @@ const MyFavorites = () => {
 
    if (loading) return <Loader />;
 
-
   if (favorites.length === 0) {
     return <p className="text-center mt-10 text-gray-500">No favorite artworks yet.</p>;
   }
@@ -52,6 +52,7 @@ const MyFavorites = () => {
   return (
     <section className="mt-1 py-8 px-6 md:px-28 bg-gray-100 min-h-screen">
       <ToastContainer />
+      <ReactTooltip id="favorites-tooltip" />
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-center text-purple-700">My Favorites</h2>
 
@@ -68,12 +69,17 @@ const MyFavorites = () => {
                 <p className="text-gray-500 mb-4">Likes: {art.likes.length || 0}</p>
                 <div className="flex gap-2">
                   <Link to={`/artworks/${art._id}`}>
-                    <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500">
+                    <button
+                      data-tooltip-id="favorites-tooltip"
+                      data-tooltip-content="View artwork details"
+                      className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500">
                       View Details
                     </button>
                   </Link>
                   <button
                     onClick={() => handleUnfavorite(art._id)}
+                    data-tooltip-id="favorites-tooltip"
+                    data-tooltip-content="Remove from favorites"
                     className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500">
                     Remove
                   </button>
