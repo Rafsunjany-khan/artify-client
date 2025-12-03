@@ -7,7 +7,7 @@ const Banner = () => {
   const sliderRef = useRef();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/banners")
+    axios.get("https://artify-server-af6p.onrender.com/api/banners")
       .then(res => setBanners(res.data))
       .catch(err => console.log(err));
   }, []);

@@ -4,7 +4,7 @@ const TopArtists = () => {
   const [artists, setArtists] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/artworks")
+    fetch("https://artify-server-af6p.onrender.com/api/artworks")
       .then((res) => res.json())
       .then((data) => {
         const countMap = {};

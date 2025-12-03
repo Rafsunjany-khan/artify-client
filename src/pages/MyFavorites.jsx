@@ -14,7 +14,7 @@ const MyFavorites = () => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/artworks");
+        const res = await axios.get("https://artify-server-af6p.onrender.com/api/artworks");
         const userFavorites = res.data.filter((art) =>
           art.favorites.includes(user.email)
         );
@@ -32,7 +32,7 @@ const MyFavorites = () => {
 
   const handleUnfavorite = async (artId) => {
     try {
-      await axios.put(`http://localhost:5000/api/artworks/${artId}/favorite`, {
+      await axios.put(`https://artify-server-af6p.onrender.com/api/artworks/${artId}/favorite`, {
         userEmail: user.email,
       });
       setFavorites((prev) => prev.filter((art) => art._id !== artId));

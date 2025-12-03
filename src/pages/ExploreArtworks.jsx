@@ -25,11 +25,11 @@ const ExploreArtworks = () => {
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/artworks");
+        const res = await axios.get("https://artify-server-af6p.onrender.com/api/artworks");
         const publicArtworks = res.data.filter((art) => art.visibility === "Public");
         setArtworks(publicArtworks);
 
-        // Extract unique categories from artworks
+
         const uniqueCategories = [...new Set(publicArtworks.map(art => art.category))];
         setCategories(uniqueCategories);
       } catch (err) {

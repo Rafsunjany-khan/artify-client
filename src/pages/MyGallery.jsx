@@ -4,6 +4,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
 import Loader from "../components/Loader";
 
+const BASE_URL = "https://artify-server-af6p.onrender.com/api/artworks";
+
 const MyGallery = () => {
   const { user } = useAuth();
   const [artworks, setArtworks] = useState([]);
@@ -25,7 +27,7 @@ const MyGallery = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:5000/api/artworks?email=${user.email}`)
+        .get(`${BASE_URL}?email=${user.email}`)
         .then((res) => {
           setArtworks(res.data);
           setLoading(false);
@@ -60,7 +62,7 @@ const MyGallery = () => {
   const handleUpdate = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/artworks/${editingArtwork._id}`,
+        `${BASE_URL}/${editingArtwork._id}`,
         { ...formData, userName: user.displayName, userEmail: user.email }
       );
       toast.success(res.data.message, { position: "top-center" });
@@ -82,7 +84,7 @@ const handleDelete = async (artId) => {
   if (!confirmDelete) return;
 
   try {
-    const res = await axios.delete(`http://localhost:5000/api/artworks/${artId}`);
+    const res = await axios.delete(`${BASE_URL}/${artId}`);
     toast.success(res.data.message, { position: "top-center" });
     setArtworks((prev) => prev.filter((art) => art._id !== artId));
   } catch (err) {

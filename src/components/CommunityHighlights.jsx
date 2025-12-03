@@ -12,7 +12,7 @@ const CommunityHighlights = () => {
   useEffect(() => {
     const fetchHighlights = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/artworks");
+        const res = await axios.get("https://artify-server-af6p.onrender.com/api/artworks");
         const artworks = res.data;
 
         const popularArtworks = artworks

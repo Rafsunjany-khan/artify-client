@@ -16,11 +16,11 @@ const ArtworkDetails = () => {
   useEffect(() => {
     const fetchArtwork = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/artworks/${id}`);
+        const res = await axios.get(`https://artify-server-af6p.onrender.com/api/artworks/${id}`);
         setArtwork(res.data);
 
         const artistRes = await axios.get(
-          `http://localhost:5000/api/artworks?email=${res.data.userEmail}`
+          `https://artify-server-af6p.onrender.com/api/artworks?email=${res.data.userEmail}`
         );
         setArtistArtworksCount(artistRes.data.length);
       } catch (err) {
@@ -36,7 +36,7 @@ const ArtworkDetails = () => {
   const handleLike = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/artworks/${id}/like`,
+        `https://artify-server-af6p.onrender.com/api/artworks/${id}/like`,
         { userEmail: user.email }
       );
       setArtwork(res.data);
@@ -55,7 +55,7 @@ const ArtworkDetails = () => {
       }
 
       const res = await axios.put(
-        `http://localhost:5000/api/artworks/${id}/favorite`,
+        `https://artify-server-af6p.onrender.com/api/artworks/${id}/favorite`,
         { userEmail: user.email }
       );
       setArtwork(res.data);

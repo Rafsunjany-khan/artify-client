@@ -52,7 +52,7 @@ const AddArtworks = () => {
 
     try {
       const updatedData = { ...formData, userName: user.displayName, userEmail: user.email };
-      const res = await axios.post("http://localhost:5000/api/artworks", updatedData);
+      const res = await axios.post("https://artify-server-af6p.onrender.com/api/artworks", updatedData);
       toast.success(res.data.message, { position: "top-center" });
 
       setFormData({
