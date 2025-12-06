@@ -11,10 +11,11 @@ const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(firebaseUser => {
+    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
         setUser({
           displayName: firebaseUser.displayName,
@@ -50,37 +51,61 @@ const Navbar = () => {
   return (
     <nav className="w-full bg-white dark:bg-gray-900 shadow-md z-50 px-4 md:px-10 py-4 flex justify-between items-center transition-colors duration-500">
       <div className="text-2xl font-bold text-purple-600 cursor-pointer">Artify</div>
+      <button className="btn btn-ghost md:hidden"
+        onClick={() => setMobileOpen((s) => !s)}
+        aria-label="Toggle menu">
+       <svg
+         xmlns="http://www.w3.org/2000/svg"
+         className="h-6 w-6 text-gray-700 dark:text-gray-200"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor">
+       <path
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         strokeWidth="2"
+         d="M4 6h16M4 12h16M4 18h16"/>
+       </svg>
+      </button>
 
       <ul className="hidden md:flex space-x-6 text-gray-700 dark:text-gray-200 font-medium items-center">
-        <li><Link to="/" className="hover:text-purple-500">Home</Link></li>
-        <li><Link to="/explore" className="hover:text-purple-500">Explore Artworks</Link></li>
+        <li>
+          <Link to="/" className="hover:text-purple-500"> Home </Link>
+        </li>
+        <li>
+          <Link to="/explore" className="hover:text-purple-500"> Explore Artworks </Link>
+        </li>
         {user && (
           <>
-            <li><Link to="/addArtwork" className="hover:text-purple-500">Add Artwork</Link></li>
-            <li><Link to="/my-gallery" className="hover:text-purple-500">My Gallery</Link></li>
-            <li><Link to="/my-favorites" className="hover:text-purple-500">My Favorites</Link></li>
+            <li>
+              <Link to="/addArtwork" className="hover:text-purple-500"> Add Artwork </Link>
+            </li>
+            <li>
+              <Link to="/my-gallery" className="hover:text-purple-500"> My Gallery </Link>
+            </li>
+            <li>
+              <Link to="/my-favorites" className="hover:text-purple-500"> My Favorites </Link>
+            </li>
           </>
         )}
         <li>
           <button
             onClick={toggleTheme}
-            className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
-          >
+            className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300">
             {theme === "light" ? "Dark Mode" : "Light Mode"}
           </button>
         </li>
       </ul>
 
       {user ? (
-        <div className="relative ml-4" ref={dropdownRef}>
-          <img
-            src={user.photoURL || "https://via.placeholder.com/40"}
+        <div className="relative ml-4 hidden md:block" ref={dropdownRef}>
+          <img src={user.photoURL || "https://via.placeholder.com/40"}
             className="w-10 h-10 object-cover rounded-full cursor-pointer border-2 border-purple-500"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          />
+            onClick={() => setDropdownOpen(!dropdownOpen)} />
           {dropdownOpen && (
             <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 border rounded shadow-lg py-2 z-50 flex flex-col">
-              <button onClick={() => navigate("/profile")} className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-purple-100 dark:hover:bg-purple-600 text-left mb-1">
+              <button onClick={() => navigate("/profile")}
+                className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-purple-100 dark:hover:bg-purple-600 text-left mb-1">
                 Profile
               </button>
               <button onClick={handleLogout} className="w-full text-white bg-red-500 hover:bg-red-600 rounded px-4 py-2">
@@ -90,11 +115,45 @@ const Navbar = () => {
           )}
         </div>
       ) : (
-        <Link to="/login">
+        <Link to="/login" className="hidden md:block">
           <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500 text-sm font-medium">
             Login / Register
           </button>
         </Link>
+      )}
+
+      {mobileOpen && (
+        <div className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-md md:hidden p-4 flex flex-col space-y-3 text-gray-700 dark:text-gray-200 font-medium z-50">
+          <Link to="/" onClick={() => setMobileOpen(false)} className="hover:text-purple-500"> Home </Link>
+          <Link to="/explore" onClick={() => setMobileOpen(false)} className="hover:text-purple-500"> Explore Artworks </Link>
+
+          {user && (
+            <>
+              <Link to="/addArtwork" onClick={() => setMobileOpen(false)} className="hover:text-purple-500"> Add Artwork </Link>
+              <Link to="/my-gallery" onClick={() => setMobileOpen(false)} className="hover:text-purple-500"> My Gallery </Link>
+              <Link to="/my-favorites" onClick={() => setMobileOpen(false)} className="hover:text-purple-500"> My Favorites </Link>
+            </>
+          )}
+
+          <button onClick={() => {
+              toggleTheme();
+              setMobileOpen(false);
+            }}
+            className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded" >
+            {theme === "light" ? "Dark Mode" : "Light Mode"}
+          </button>
+
+          {user ? (
+            <>
+              <button onClick={() => { setMobileOpen(false); navigate('/profile'); }} className="text-left px-2 py-2 hover:bg-purple-100 dark:hover:bg-purple-600"> Profile </button>
+              <button onClick={() => { setMobileOpen(false); handleLogout(); }} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"> Logout </button>
+            </>
+          ) : (
+            <Link to="/login" onClick={() => setMobileOpen(false)}>
+              <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500"> Login / Register </button>
+            </Link>
+          )}
+        </div>
       )}
     </nav>
   );
